@@ -47,11 +47,6 @@ class Notify extends MailMessage {
     function mail($email){
         return Mail::to($email);
     }
-
-    // function __construct() {
-    //     $this->mail = EmailMessage::where('mailable', get_class($this))->first();
-    //     parent::__construct($this->mail->subject);
-    // }
     
     function parse($data){
 

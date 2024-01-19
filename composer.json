@@ -2,16 +2,7 @@
     "name": "utyemma/notifire",
     "description": "Create Dynamic Email Messages using Laravel's Notification system",
     "license": "MIT",
-    "keywords": [
-        "spatie",
-        "laravel",
-        "permission",
-        "permissions",
-        "roles",
-        "acl",
-        "rbac",
-        "security"
-    ],
+    "version": "1.0.0",
     "autoload": {
         "psr-4": {
             "Utyemma\\Notifire\\": "src/"
@@ -26,6 +17,9 @@
         }
     ],
     "homepage": "https://github.com/UtyEmma/notifire",
+    "require": {
+        "php": ">=8.1"
+    },
     "require-dev": {
         "orchestra/testbench": "^8.21"
     },
