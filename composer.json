@@ -1,0 +1,66 @@
+{
+    "name": "utyemma/notifire",
+    "description": "Create Dynamic Email Messages using Laravel's Notification system",
+    "license": "MIT",
+    "keywords": [
+        "spatie",
+        "laravel",
+        "permission",
+        "permissions",
+        "roles",
+        "acl",
+        "rbac",
+        "security"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Utyemma\\Notifire\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Utibe-Abasi Emmanuel",
+            "email": "utyemma@gmail.com",
+            "homepage": "https://utyemma.vercel.app",
+            "role": "Developer"
+        }
+    ],
+    "homepage": "https://github.com/UtyEmma/notifire",
+    "require-dev": {
+        "orchestra/testbench": "^8.21"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Workbench\\App\\": "workbench/app/",
+            "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+            "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "@build",
+            "@php vendor/bin/testbench serve"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "UtyEmma\\Notifire\\ServiceProvider"
+            ],
+            "aliases": {
+                "Notifire": "UtyEmma\\Notifire\\Facade"
+            }
+        }
+    }
+}
