@@ -1,8 +1,7 @@
 <?php
 
-namespace Utyemma\Notifire;
+namespace Utyemma\Notifire\Database\Seeders;
 
-use App\Services\Mailable\MailableService;
 use Illuminate\Database\Seeder;
 
 class MailableSeeder extends Seeder
@@ -15,7 +14,6 @@ class MailableSeeder extends Seeder
         $messages = config('notifire::mailables');
 
         foreach ($messages as $key => $value) {
-            // app(MailableService::class)->generate($key, $value);
         }
 
     }

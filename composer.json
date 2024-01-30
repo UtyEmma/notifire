@@ -2,12 +2,7 @@
     "name": "utyemma/notifire",
     "description": "Create Dynamic Email Messages using Laravel's Notification system",
     "license": "MIT",
-    "version": "1.0.0",
-    "autoload": {
-        "psr-4": {
-            "Utyemma\\Notifire\\": "src/"
-        }
-    },
+    "keywords": ["Notifire", "Notification", "Laravel Notification"],
     "authors": [
         {
             "name": "Utibe-Abasi Emmanuel",
@@ -23,15 +18,20 @@
     "require-dev": {
         "orchestra/testbench": "^8.21"
     },
+    "autoload": {
+        "psr-4": {
+            "Utyemma\\Notifire\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
     "autoload-dev": {
         "psr-4": {
             "Workbench\\App\\": "workbench/app/",
             "Workbench\\Database\\Factories\\": "workbench/database/factories/",
             "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
-        },
-        "files": [
-            "src/helpers.php"
-        ]
+        }
     },
     "scripts": {
         "post-autoload-dump": [
@@ -50,11 +50,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "UtyEmma\\Notifire\\ServiceProvider"
-            ],
-            "aliases": {
-                "Notifire": "UtyEmma\\Notifire\\Facade"
-            }
+                "Utyemma\\Notifire\\NotifireServiceProvider"
+            ]
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

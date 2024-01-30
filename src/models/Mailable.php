@@ -1,6 +1,6 @@
 <?php
 
-namespace Utyemma\Notifire\Model;
+namespace Utyemma\Notifire\Models;
 
 use App\Enums\Status;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;

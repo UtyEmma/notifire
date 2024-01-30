@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Mailables\{{NAMESPACE}};
+namespace {{NAMESPACE}};
 
-use Utyemma\Notifire\Mailables;
+use Utyemma\Notifire\Notify;
 
-class {{CLASS_NAME}} extends Mailables {
+class {{CLASS_NAME}} extends Notify {
 
     protected $variables = [];
 

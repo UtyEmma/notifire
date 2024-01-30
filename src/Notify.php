@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\HtmlString;
-use Utyemma\Notifire\Model\Mailable;
+use Utyemma\Notifire\Models\Mailable;
 use Utyemma\Notifire\Notifications\MailableNotification;
 
 class Notify extends MailMessage {
