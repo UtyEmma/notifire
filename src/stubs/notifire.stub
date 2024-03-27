@@ -6,14 +6,20 @@ use Utyemma\Notifire\Notify;
 
 class {{CLASS_NAME}} extends Notify {
 
-    protected $variables = [];
-
     public $source = '{{SOURCE}}';
 
     public toDatabase() {
         return [ ];
     }
 
-    
+    public setSubject() {
+        return "";
+    }
+
+    public setMailMessage(){
+        return <<<MESSAGE
+            
+        MESSAGE;
+    }
 
 }

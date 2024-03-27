@@ -2,7 +2,7 @@
 
 return [
     
-    'source' => 'database', //database,inline,text
-    
+    'source' => 'database', //database,inline
+
     
 ];
