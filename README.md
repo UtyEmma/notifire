@@ -29,15 +29,108 @@ Create your first mailable class
 php artisan make:mailable ExampleMailable
 ```
 
-Format your mail message
-Send your Notification
+#### Format your mail message
 
+
+
+#### Send a Notification using the Mailable Class
 ```php
 use App\Mailable\ExampleMailable;
 
 //Send your first notification message
 ExampleMailable::send($user, ['mail', 'database']);
 ```   
+
+#### Send a notification by laravel default mail message formatting
+
+Your can learn more about Laravel's default mail message formatting from the [Laravel Documentation](https://laravel.com/docs/11.x/notifications#formatting-mail-messages)
+
+```php
+use Utyemma\Notifire\Notification;
+use App\Models\User;
+
+$users = User::all();
+
+//Send your first notification message
+Notification::subject('Your Notification Subject')
+    ->greeting('Hello!')
+    ->line('You have a new message.')
+    ->line('Thank you for using our application!');
+    ->send($users, ['mail', 'database']);
+```
+
+Alternatively, if your wish to send a mail instead of create a notification, you can do so by replacing the send method with the 'mail' method
+
+```php
+use Utyemma\Notifire\Notification;
+use App\Models\User;
+
+$recievers = ['admin@example.com', 'user@example.com'];
+
+$data = [
+    'name' => 'John Doe'
+];
+
+//Send your first notification message
+Notification::subject('Your Notification Subject', $data)
+    ->greeting('Hello {{name}}')
+    ->line('You have a new message.')
+    ->line('Thank you for using our application!');
+    ->mail($recievers);
+```
+
+## Customizing the Templating Engine
+
+### Templating using Mustache
+This package makes use of [mustache](https://mustache.github.io/) as the default templating system to handle basic templating data. You can learn more about using mustache via the [php documentation](https://github.com/bobthecow/mustache.php)
+
+You may alternatively specify a custom templating system for your entire system or for each class
+
+#### Configuring for each mailable class
+Here is an example using the Laravel's blade templating engine
+
+```php
+    namespace App\Mailable;
+
+    use Illuminate\Support\Facades\Blade;
+    use Utyemma\Notifire\Notification;
+
+    class ExampleMailable extends Notification {
+        public function resolver($content, $placeholders){
+            return new Blade::render($content, $placeholders);
+        }
+    }
+```
+
+##### Configuring for all mailable classes
+Here is an example using handlebars templating engine. Learn more about using Handle Bars in your Laravel Application. [Handle Bars Docs](https://github.com/salesforce/handlebars-php)
+
+1. Create a simple invokeable class that returns a static renderEngine method
+
+```php
+    use Handlebars\Handlebars;
+
+    class HandleBarsResolver {
+
+        function __invoke($content, $placeholders){
+            return (new Handlebars)->render($content, $placeholders);
+        }
+
+    }
+```
+
+2. Update the 'resolver' item in your config file
+
+```php
+    use App\Notifire\Resolvers\HandleBarsResolver;
+
+    return [
+        'resolver' => HandleBarsResolver::class
+    ];
+```
+
+If this class is provided it willl be used in resolving the templates. You must ensure your your mail messages are formatted based on the templating engine you are using as your resolver. 
+
 
 ## Testing
 ```bash
