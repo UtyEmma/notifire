@@ -1,14 +1,14 @@
 # Laravel Notifire
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/utyemma/notifire)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/utyemma/notifire.svg?style=flat-square)](https://packagist.org/packages/utyemma/notifire)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/:vendor_slug/:package_slug/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/:vendor_slug/:package_slug/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/utyemma/notifire)
+[![Total Downloads](https://img.shields.io/packagist/dt/utyemma/notifire.svg?style=flat-square)](https://packagist.org/packages/utyemma/notifire)
 <!--delete-->
 ---
-Create dynamic notifications and email messages using Laravel’s native notification system:.
+Create dynamic notifications and email messages using Laravel’s native notification system.
 
-### Setup and Installation
+## Setup and Installation
 Install Laravel Notifier in your project
 
 ```bash
@@ -22,7 +22,7 @@ If you intend to store your mail messages in your database, then you’ll be req
 php artisan migrate
 ```
 
-### Usage
+## Usage
 Create your first mailable class
 
 ```
@@ -33,13 +33,13 @@ Format your mail message
 Send your Notification
 
 ```php
-//Send your first notification message
-MyFirstEmail::send($user, [‘mail’, ‘database’]);
+use App\Mailable\ExampleMailable;
 
+//Send your first notification message
+ExampleMailable::send($user, ['mail', 'database’]);
 ```   
 
 ## Testing
-
 ```bash
 composer test
 ```
@@ -54,7 +54,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Security Vulnerabilities
 
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+If you discover any security-related issues, please email  [utyemma@gmail.com](mailto:utyemma@gmail.com) instead of using the issue tracker.
 
 ## Credits
 
