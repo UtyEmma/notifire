@@ -12,7 +12,7 @@ Create dynamic notifications and email messages using Laravel’s native notific
 Install Laravel Notifier in your project
 
 ```bash
-composer require utyemma/laravel-notifire
+composer require utyemma/notifire
 ```
 
 If you intend to store your mail messages in your database, then you’ll be required to run migrations. 
