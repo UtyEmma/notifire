@@ -32,14 +32,19 @@ class CreateMailable extends GeneratorCommand {
     protected function buildClass($name) {
         $this->subject = $this->option('subject') ? $this->option('subject') : config('notifire.defaults.subject');
         $this->message = config('notifire.defaults.body');
-        $this->createMailable();
+        $this->createMailable($name);
+
         return str_replace(['{{subject}}', "{{message}}"], [$this->subject, $this->message], parent::buildClass($name));
     }
 
-    function createMailable(){
-        if($this->source == 'database') {
+    function createMailable($name){
+        $source = $this->option('source');
+        $this->subject = $this->option('subject') ? $this->option('subject') : config('notifire.defaults.subject');
+        $this->message = config('notifire.defaults.body');
+
+        if($source == 'database') {
             Mailable::create([
-                'mailable' => $this->name,
+                'mailable' => $name,
                 'subject' => $this->subject,
                 'body' => $this->message
             ]);
