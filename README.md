@@ -149,7 +149,7 @@ If you discover any security-related issues, please email  [utyemma@gmail.com](m
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Utibe-Abasi Emmanuel](https://github.com/UtyEmma)
 - [All Contributors](../../contributors)
 
 ## License
