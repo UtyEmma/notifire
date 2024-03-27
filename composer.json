@@ -3,7 +3,7 @@
     "description": "Create Dynamic Email Messages using Laravel's Notification system",
     "license": "MIT",
     "keywords": ["Notifire", "Notification", "Laravel Notification"],
-    "version": "1.0",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "Utibe-Abasi Emmanuel",
@@ -56,6 +56,6 @@
             ]
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
