@@ -2,6 +2,8 @@
 
 namespace Utyemma\Notifire;
 
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Mail\Mailable as LaravelMailable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Mail;
@@ -15,13 +17,18 @@ class Notify extends MailMessage {
 
     public $content = [];
     private Mailable $mail;
+    protected $source;
 
     public function __construct(string $subject = '', $data = []) {
         $this->content = $data;
-        if(class_exists($subject)){
-            $this->mail = Mailable::where('mailable', get_class($this))->first();
+
+        if($this->source == 'database') {
+            if(!$this->mail = Mailable::whereMailable(get_class($this))->first()) {
+                throw new ModelNotFoundException();
+            }
+
             return $this->parse($data);
-        }
+        } 
 
         $this->subject($subject);
     }

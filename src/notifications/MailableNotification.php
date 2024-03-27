@@ -14,8 +14,8 @@ class MailableNotification extends Notification implements ShouldQueue {
      * Create a new notification instance.
      */
     public function __construct(
-        private $channels,
-        private MailMessage $mailMessage
+            private $channels,
+            private MailMessage $mailMessage
         )
     {
         //
@@ -26,16 +26,14 @@ class MailableNotification extends Notification implements ShouldQueue {
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
-    {
+    public function via(object $notifiable): array {
         return $this->channels;
     }
 
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): MailMessage
-    {
+    public function toMail(object $notifiable): MailMessage {
         return $this->mailMessage;
     }
 
@@ -44,10 +42,7 @@ class MailableNotification extends Notification implements ShouldQueue {
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
-    {
-        return [
-            //
-        ];
+    public function toArray(object $notifiable): array {
+        return $this->mailMessage->toArray();
     }
 }
