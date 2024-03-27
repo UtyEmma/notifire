@@ -1,0 +1,22 @@
+<?php
+
+namespace {{namespace}};
+
+use Utyemma\Notifire\Notify;
+
+class {{class}} extends Notify {
+
+    protected $source = 'inline';
+    protected $subject = '{{subject}}';
+
+    function toArray() : array {
+        return [];
+    }
+
+    function setBody() : string {
+        return <<<MESSAGE
+            {{message}}
+        MESSAGE;
+    }
+
+}

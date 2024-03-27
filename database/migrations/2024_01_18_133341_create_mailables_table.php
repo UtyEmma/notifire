@@ -14,12 +14,9 @@ return new class extends Migration
         Schema::create('mailables', function (Blueprint $table) {
             $table->id();
             $table->string('mailable')->unique();
-            $table->string('title');
-            $table->longText('content')->nullable();
-            $table->string('subject')->nullable();
-            $table->string('layout')->nullable();
-            $table->json('variables')->nullable();
-            $table->string('sent');
+            $table->longText('body')->nullable();
+            $table->mediumText('subject')->nullable();
+            $table->integer('sent');
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace Utyemma\Notifire;
 
 use Illuminate\Support\ServiceProvider as SupportServiceProvider;
 use Utyemma\Notifire\Commands\CreateMailable;
+use Utyemma\Notifire\Facades\Notifire;
 
 class NotifireServiceProvider extends SupportServiceProvider {
 
@@ -14,11 +15,21 @@ class NotifireServiceProvider extends SupportServiceProvider {
 
         $this->publishes([
             __DIR__.'/../config/notifire.php' => config_path('notifire.php'),
-        ], 'notifire-config');
+        ]);
         
         $this->publishes([
             __DIR__.'/../database/migrations/' => database_path('migrations'),
         ], 'notifire-migrations');
+
+        $this->app->bind('notifire', function($app) {
+            return new Notifire();
+        });
+    }
+
+    function register() {
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/notifire.php', 'notifire'
+        );
     }
 
     function registerCommands(){
