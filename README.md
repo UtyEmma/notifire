@@ -80,14 +80,12 @@ Notification::subject('Your Notification Subject', $data)
 ```
 
 ## Customizing the Templating Engine
+By default, this package makes use of [mustache](https://mustache.github.io/) as the default templating system to handle basic templating data. You can learn more about using mustache via the [php documentation](https://github.com/bobthecow/mustache.php)
 
-### Templating using Mustache
-This package makes use of [mustache](https://mustache.github.io/) as the default templating system to handle basic templating data. You can learn more about using mustache via the [php documentation](https://github.com/bobthecow/mustache.php)
+However, you are free to use any custom template engine supported by PHP for your entire application or for a single mailable class. You can do so by registering custom template resolvers as shown below
 
-You may alternatively specify a custom templating system for your entire system or for each class
-
-#### Configuring for each mailable class
-Here is an example using the Laravel's blade templating engine
+#### Registering a custom template resolver for a specific mailable class
+This example sets the default resolver to make use of Laravel's blade templating engine. You can learn more about Laravel Blade [here](https://laravel.com/docs/11.x/blade)
 
 ```php
     namespace App\Mailable;
@@ -96,7 +94,7 @@ Here is an example using the Laravel's blade templating engine
     use Utyemma\Notifire\Notification;
 
     class ExampleMailable extends Notification {
-        public function resolver($content, $placeholders){
+        public function setResolver($content, $placeholders){
             return new Blade::render($content, $placeholders);
         }
     }
@@ -129,7 +127,7 @@ Here is an example using handlebars templating engine. Learn more about using Ha
     ];
 ```
 
-If this class is provided it willl be used in resolving the templates. You must ensure your your mail messages are formatted based on the templating engine you are using as your resolver. 
+> If this class is provided it willl be used in resolving the templates. You must ensure your your mail messages are formatted based on the templating engine you are using as your resolver. 
 
 
 ## Testing
