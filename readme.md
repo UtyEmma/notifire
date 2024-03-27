@@ -29,15 +29,30 @@ Create your first mailable class
 php artisan make:mailable ExampleMailable
 ```
 
-Format your mail message
-Send your Notification
+#### Format your mail message
 
+
+
+#### Send a Notification using the Mailable Class
 ```php
 use App\Mailable\ExampleMailable;
 
 //Send your first notification message
-ExampleMailable::send($user, ['mail', 'database’]);
+ExampleMailable::send($user, ['mail', 'database']);
 ```   
+
+#### Send a notification by laravel default mail message formatting
+
+Your can learn more about Laravel's default mail message formatting from the [Laravel Documentation](https://laravel.com/docs/11.x/notifications#formatting-mail-messages)
+
+```php
+use Utyemma\Notifire\Notification;
+
+//Send your first notification message
+Notification::subject('Your Notification Subject')
+    ->line('Your first ')
+    ->send($user, ['mail', 'database']);
+```
 
 ## Testing
 ```bash
