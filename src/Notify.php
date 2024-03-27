@@ -2,10 +2,10 @@
 
 namespace Utyemma\Notifire;
 
-use Illuminate\Mail\Mailable as MailMailable;
+use Illuminate\Mail\Mailable as LaravelMailable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Notification as LaravelNotification;
 use Illuminate\Support\HtmlString;
 use Mustache_Engine;
 use Utyemma\Notifire\Models\Mailable;
@@ -29,16 +29,16 @@ class Notify extends MailMessage {
 
     function send($receivers, $channels = null){
         if(is_string($receivers)) return $this->mail($receivers)->send($this->mailable());
-        return Notification::send($receivers, new MailableNotification($channels, $this));
+        return LaravelNotification::send($receivers, new MailableNotification($channels, $this));
     }
 
     function sendNow($receivers, $channels = null){
         if(is_string($receivers)) return $this->mail($receivers)->send($this->mailable());
-        return Notification::sendNow($receivers, new MailableNotification($channels, $this));
+        return LaravelNotification::sendNow($receivers, new MailableNotification($channels, $this));
     }
 
     function mailable(){
-        $mailable = new MailMailable();
+        $mailable = new LaravelMailable();
         $mailable->subject = $this->subject;
         return $mailable->html($this->render()->toHtml());
     }
@@ -53,9 +53,13 @@ class Notify extends MailMessage {
         $this->greeting(' ');
         $this->salutation(' ');
         $text = preg_replace('/(["\']{3,})/', '"', $this->mail->content);
-        $message = (new Mustache_Engine)->render(trim($text), $data);
+        $message = $this->resolver(trim($text), $data);
         $this->line(new HtmlString($message));
         return $this;
+    }
+
+    protected function resolver($content, $data){
+        return (new Mustache_Engine)->render(trim($content), $data);
     }
 
 }

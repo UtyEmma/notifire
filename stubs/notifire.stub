@@ -8,15 +8,11 @@ class {{CLASS_NAME}} extends Notify {
 
     public $source = '{{SOURCE}}';
 
-    public toDatabase() {
-        return [ ];
+    public toDatabase() : array {
+        return [];
     }
 
-    public setSubject() {
-        return "";
-    }
-
-    public setMailMessage(){
+    public setMailMessage() : string {
         return <<<MESSAGE
             
         MESSAGE;
