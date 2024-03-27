@@ -3,7 +3,6 @@
 namespace Utyemma\Notifire;
 
 use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Mail\Mailable as LaravelMailable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Mail;
@@ -16,53 +15,61 @@ use Utyemma\Notifire\Notifications\MailableNotification;
 class Notify extends MailMessage {
 
     public $content = [];
-    private Mailable $mail;
+    private Mailable | null $mailable = null;
     protected $source;
 
-    public function __construct(string $subject = '', $data = []) {
+    function setBody() { }
+
+    function __construct($data = []) {
         $this->content = $data;
 
+        $class = get_class($this);
+        $model = Mailable::class;
+
         if($this->source == 'database') {
-            if(!$this->mail = Mailable::whereMailable(get_class($this))->first()) {
-                throw new ModelNotFoundException();
+            if(!$this->mailable = Mailable::whereMailable(get_class($this))->first()) {
+                throw new Exception("Database mailable [{$class}] does not exist on $model model");
             }
 
-            return $this->parse($data);
-        } 
+            return $this->parse($this->mailable);
+        }
 
-        $this->subject($subject);
-    }
-
-    private static function __callStatic($name, $arguments) {
-        if($name == 'send') return self::send(...$arguments);
-        if($name == 'sendNow') return self::sendNow(...$arguments);
+        if($this->source == 'inline') {
+            return $this->parse([
+                'subject' => $this->subject,
+                'body' => $this->setBody(),
+            ]);
+        }
     }
 
     function send($receivers, $channels = null){
-        return LaravelNotification::send($receivers, new MailableNotification($channels, $this));
+        if(is_string($receivers)) return $this->mail($receivers);
+        LaravelNotification::send($receivers, new MailableNotification($channels, $this));
+        $this->record();
     }
 
     function sendNow($receivers, $channels = null){
-        if(is_string($receivers)) return $this->mail($receivers)->send($this->mailable());
-        return LaravelNotification::sendNow($receivers, new MailableNotification($channels, $this));
+        if(is_string($receivers)) return $this->mail($receivers);
+        LaravelNotification::sendNow($receivers, new MailableNotification($channels, $this));
+        $this->record();
     }
 
     private function mailable(){
         $mailable = new LaravelMailable();
-        $mailable->subject = $this->subject;
+        $mailable->subject = $this->subject;    
         return $mailable->html($this->render()->toHtml());
     }
 
     function mail($email){
+        $this->record();
         return Mail::to($email)->send($this->mailable());
     }
-    
+
     private function parse($data){
-        $subject = (new Mustache_Engine)->render($this->subject, $data);
-        $this->subject($subject);
+        $this->subject($data['subject']);
         $this->greeting(' ');
         $this->salutation(' ');
-        $text = preg_replace('/(["\']{3,})/', '"', $this->mail->content);
+        $text = preg_replace('/(["\']{3,})/', '"', $data['body']);
         $message = $this->resolver(trim($text), $data);
         $this->line(new HtmlString($message));
         return $this;
@@ -72,9 +79,16 @@ class Notify extends MailMessage {
         if($resolver = config('notifire.resolver')) return new $resolver($content, $data);
         return $this->setResolver($content, $data);
     }
-    
+
     protected function setResolver($content, $data){
         return (new Mustache_Engine)->render(trim($content), $data);
+    }
+
+    function record(){
+        if($this->mailable) {
+            ++$this->mailable->sent;
+            $this->mailable->save();
+        }
     }
 
 }

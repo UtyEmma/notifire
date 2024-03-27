@@ -26,7 +26,7 @@ class CreateMailable extends GeneratorCommand {
     }
 
     protected function getDefaultNamespace($rootNamespace) {
-        return $rootNamespace.'\Mailable';
+        return $rootNamespace.'\Mailables';
     }
 
     protected function buildClass($name) {

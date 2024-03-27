@@ -11,7 +11,7 @@ class NotifireServiceProvider extends SupportServiceProvider {
     function boot(){
         $this->registerCommands();
         
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations/2024_01_18_133341_create_mailables_table.php');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations/2024_01_18_133341_create_mailables_table.php');
 
         $this->publishes([
             __DIR__.'/../config/notifire.php' => config_path('notifire.php'),

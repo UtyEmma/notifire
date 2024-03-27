@@ -7,7 +7,7 @@ use Utyemma\Notifire\Notify;
 class {{class}} extends Notify {
 
     protected $source = 'inline';
-    protected $subject = '{{subject}}';
+    public $subject = '{{subject}}';
 
     function toArray() : array {
         return [];
