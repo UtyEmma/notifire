@@ -1,7 +1,8 @@
 <?php
 
 return [
-
-    'stub_path' => 'stubs/mailable.stub', 
+    
+    'source' => 'database', //database,inline,text
+    
     
 ];

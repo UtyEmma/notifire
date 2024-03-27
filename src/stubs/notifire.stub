@@ -8,4 +8,12 @@ class {{CLASS_NAME}} extends Notify {
 
     protected $variables = [];
 
+    public $source = '{{SOURCE}}';
+
+    public toDatabase() {
+        return [ ];
+    }
+
+    
+
 }

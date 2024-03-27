@@ -4,10 +4,10 @@ namespace Utyemma\Notifire;
 
 use Illuminate\Mail\Mailable as MailMailable;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\HtmlString;
+use Mustache_Engine;
 use Utyemma\Notifire\Models\Mailable;
 use Utyemma\Notifire\Notifications\MailableNotification;
 
@@ -15,7 +15,6 @@ class Notify extends MailMessage {
 
     public $content = [];
     private Mailable $mail;
-
 
     public function __construct(string $subject = '', $data = []) {
         $this->content = $data;
@@ -49,15 +48,12 @@ class Notify extends MailMessage {
     }
     
     function parse($data){
-
-        $subject = Blade::render($this->subject, $data);
+        $subject = (new Mustache_Engine)->render($this->subject, $data);
         $this->subject($subject);
-
         $this->greeting(' ');
         $this->salutation(' ');
-
         $text = preg_replace('/(["\']{3,})/', '"', $this->mail->content);
-        $message = Blade::render(trim($text), $data);
+        $message = (new Mustache_Engine)->render(trim($text), $data);
         $this->line(new HtmlString($message));
         return $this;
     }
