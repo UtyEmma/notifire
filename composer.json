@@ -52,7 +52,10 @@
         "laravel": {
             "providers": [
                 "Utyemma\\Notifire\\NotifireServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Notifire": "Utyemma\\Notifire\\Facade\\Notifire"
+            }
         }
     },
     "minimum-stability": "dev",
