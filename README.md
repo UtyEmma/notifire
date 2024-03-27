@@ -36,7 +36,7 @@ Send your Notification
 use App\Mailable\ExampleMailable;
 
 //Send your first notification message
-ExampleMailable::send($user, ['mail', 'database’]);
+ExampleMailable::send($user, ['mail', 'database']);
 ```   
 
 ## Testing
